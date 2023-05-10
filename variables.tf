@@ -68,7 +68,7 @@ variable "VM_CIDR_RANGE" {
 
 variable "ssh_key" {
     type    = string
-    default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDY8kTtEZrDAM9Q+E8quZuggErqXGOZCNKHvDt+L8RSQajHn1flZw0U1I+opV/OOlLTy0gy1IIJsqYHk4zyxKYMTevUwHxdaQB0BlAhMZMBD4pn4K6V+wrd16iBL07jk7YVBkAl18WS+c0v6PssarbEkDyHK3+jsnWjMIiQziP9wZf74JDCSwdtdcPSt0mcxdTyZ5DmkTJhoxlkflJyM/7m4AM6cABuBAFfubhCDDz/a3/90IacgJaFV1Vx1ZBf0/6fn1p1QH93XYo/aNyT40OcfhQPJ436LcsFrfRmozQiX/0oQGFQJ2o27TNhgbe15opQBS5hGgJh7bmorrRUMKZwz4yFfT5OwZ+TSXVSbIQtXWXWbl7CB52In6En2OzQWG3MVQxmXKE5hJ05ACte5pqdXSX+bEKJjjU/Eyovq9EqsRMkkphDtuc77sggCJngVq4H+je5jh/Epi87pwnzwapfKFdjHHAwHPyH3R0SSpBxyERZT8JAYrCqMe3F0qe0knE= igor.oliveira@lsd-pc"
+    default = "SOME_SSH_KEY"
 }
 
 variable "auth_access" {
