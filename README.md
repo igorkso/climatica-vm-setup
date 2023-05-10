@@ -1,4 +1,4 @@
-# Projeto de Provisionamento de VMs para Análise Meteorológica
+# Climatica VM Setup
 
 Este projeto consiste no provisionamento de máquinas virtuais (VMs) utilizando Terraform e a configuração de software como GRADS, R, NCO, CDO, NetCDF, por meio do Ansible. O objetivo principal é fornecer infraestrutura para que o pessoal possa fazer o download de dados meteorológicos e desenvolver modelos de predição no contexto de análise meteorológica.
 
