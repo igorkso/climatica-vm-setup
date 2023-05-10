@@ -1,0 +1,10 @@
+---
+admin_user: suporte
+server_packages:
+  - "nfs-server"
+
+client_packages:
+  - "nfs-common"
+
+dir_create:
+  - "/shared"

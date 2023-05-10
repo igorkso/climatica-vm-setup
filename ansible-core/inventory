@@ -1,0 +1,14 @@
+[servers]
+192.168.122.229
+
+[clients]
+192.168.122.112
+192.168.122.11
+
+[core]
+150.165.83.92
+
+
+[all:children]
+servers
+clients

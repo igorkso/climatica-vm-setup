@@ -1,0 +1,111 @@
+---
+
+- name: Set initial configurations
+  hosts: all
+  remote_user: "{{ admin_user }}"
+  become: true
+  vars_files:
+    - vars/default.yml
+  tasks:
+    - name: Create shared dir
+      ansible.builtin.command: mkdir /shared 
+    
+- name: Install NFS
+  hosts: servers
+  remote_user: "{{ admin_user }}"
+  become: true
+  vars_files:
+    - vars/default.yml
+    - vars/vms.yml
+
+  tasks:
+    - name: Update apt repo and cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Download and Install NFS-SERVER
+      apt:
+        name: nfs-server
+        state: latest
+   
+    - name: Config exports
+      copy:
+        src: exports
+        dest: /etc/exports
+
+    - name: Restart NFS-SERVER 
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: nfs-server.service
+    
+    - name: Setting permisions on shared data directory
+      ansible.builtin.command: chmod 777 /shared 
+    
+    - name: Set hostname
+      ansible.builtin.command: echo "nfs" > /etc/hostname
+      ansible.builtin.command: sed -i 's/localhost/nfs/g' /etc/hosts
+
+- name: Install NFS-CLIENTS
+  hosts: clients
+  remote_user: "{{ admin_user }}"
+  become: true
+  vars_files:
+    - vars/default.yml
+   
+  tasks:
+    - name: Update apt repo and cache
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+          
+    - name: Download and Install NFS-COMMON
+      apt: 
+        name: nfs-common 
+        state: latest 
+   
+    - name: Config fstab
+      copy: 
+        src: fstab 
+        dest: /etc/fstab
+        
+    - name: Restart NFS-COMMON on clients
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: nfs-client.target
+
+- name: Add Users
+  hosts: all
+  remote_user: "{{ admin_user }}"
+  become: true
+  vars_files:
+    - vars/default.yml
+    - vars/usr.yml
+
+  tasks:
+    - name: Adicionar usuários
+      user:
+        name : "{{ item.name }}"
+        password: "{{ item.password | password_hash('sha512') }}"
+        groups: "{{ item.groups }}"
+        home: "{{ item.home }}"
+        shell: "{{ item.shell }}"
+      loop: "{{ lookup('file', 'vars/usr.yml') | from_yaml }}"      
+      no_log: True
+
+  tasks:
+    - name: Reboot hosts
+      ansible.builtin.reboot:
+
+- name: Config HOST
+  hosts: core
+  become: true
+  vars_files:
+    - vars/vms.yml
+  tasks: 
+    - name: Set vms to auto_start
+      loop: "{{ lookup('file', 'vars/vms.yml') | from_yaml }}"      
+      ansible.builtin.command: virsh autostart --domain "{{ item.name }}"

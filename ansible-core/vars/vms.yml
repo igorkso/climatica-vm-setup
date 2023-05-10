@@ -1,0 +1,6 @@
+- vm1: "nfs"
+
+- vm2: "clients"
+
+- vm: "test"
+

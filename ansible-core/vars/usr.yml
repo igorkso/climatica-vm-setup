@@ -1,0 +1,23 @@
+- name: jsilva 
+  password: "senha123"
+  groups: sudo
+  home: "/home/jsilva"
+  shell: "/bin/bash"
+
+- name: sandra
+  password: "senha123"
+  groups: sudo
+  home: "/home/sandra"
+  shell: "/bin/bash"
+
+- name: melk
+  password: "senha123"
+  groups: sudo
+  home: "/home/melk"
+  shell: "/bin/bash"
+
+- name: heitor
+  password: "senha123"
+  groups: sudo
+  home: "/home/heitor"
+  shell: "/bin/bash"
