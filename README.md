@@ -10,7 +10,7 @@ O projeto é composto pelos seguintes componentes principais:
 
 - **Servidor NFS:** Uma das VMs é configurada como servidor NFS, responsável por fornecer um diretório compartilhado para todas as outras máquinas. Esse diretório é utilizado para armazenar os dados meteorológicos que serão acessados e processados pelas equipes de análise.
 
-- **Software de Análise Meteorológica:** Utilizando o Ansible, os softwares como GrADS, R, NCO, CDO, NetCDF são instalados e configurados nas VMs. Essas ferramentas fornecem funcionalidades avançadas para processamento, análise e modelagem de dados meteorológicos.
+- **Software de Análise Meteorológica:** Utilizando o Ansible, os softwares como GRADS, R, NCO, CDO, NetCDF são instalados e configurados nas VMs. Essas ferramentas fornecem funcionalidades avançadas para processamento, análise e modelagem de dados meteorológicos.
 
 ## Documentação
 
@@ -23,7 +23,7 @@ A documentação abrange os seguintes tópicos:
 - Requisitos de sistema para o provisionamento e configuração das VMs
 - Passos para utilizar o Terraform para provisionar as VMs
 - Instruções de configuração do servidor NFS e compartilhamento do diretório
-- Guia de instalação e configuração dos softwares usados nos projetos de meteorológica
+- Guia de instalação e configuração dos softwares usados nos projetos
 
 ## Contribuição
 
