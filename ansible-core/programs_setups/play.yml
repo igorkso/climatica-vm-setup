@@ -1,0 +1,109 @@
+---
+
+- name: Install packages
+  hosts: alle
+  remote_user: "suporte"
+  become: true
+
+  tasks:
+    
+    - name: update repo and cache
+      apt:
+       update_cache: yes
+       cache_valid_time: 3600
+    
+    - name: Install GCC
+      apt: 
+       name: gcc
+       state: latest
+    
+    - name: Install Make
+      apt: 
+       name: make
+       state: latest
+    
+    - name: Install GFortran
+      apt: 
+       name: gfortran
+       state: latest
+    
+    - name: Install Ksh
+      apt: 
+       name: ksh
+       state: latest
+     
+       #    - name: Install CDO   
+       #      apt:
+       #       name: cdo 
+       #       state: latest
+    
+    - name: Install Grads   
+      apt: 
+       name: grads 
+       state: latest
+    
+    - name: Install NCO   
+      apt: 
+       name: nco 
+       state: latest
+    
+    - name: Install ncl-ncarg   
+      apt: 
+       name: ncl-ncarg
+       state: latest
+    
+    - name: Link devs
+      shell: ln -s /usr/share/ncarg /usr/lib/ncarg
+
+    - name: Start setup grads 
+      copy: 
+        src: /home/igor/cluster_meteorologia/programs_setups/grads.sh
+        dest: /home/suporte/grads.sh
+
+    - name: Setup GRADS
+      become: true
+      shell: chmod 777 /home/suporte/grads.sh && /home/suporte/grads.sh
+
+    - name: Install R
+      apt:
+       name: r-base
+       state: latest
+
+    - name: Install CDFTools
+      apt:
+       name: cdftools
+       state: latest
+
+    - name: Install GdalBin
+      apt:
+       name: gdal-bin
+       state: latest
+
+    - name: Install NETCDF binaries
+      apt:
+       name: netcdf-bin
+       state: latest
+
+
+    - name: Install NetCDF libs
+      apt:
+       name: libnetcdf-dev
+       state: latest
+
+    - name: Install others libs
+      apt:
+       name: libcairo2-dev
+       state: latest
+
+    - name: Adding R packages 
+      command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs={{item}}"
+      with_items:
+      - RColorBrewer
+      - ggplot2
+      - SPEI
+      - ncdf4
+      - raster
+      - svglite
+
+
+
