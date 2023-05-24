@@ -68,7 +68,8 @@ resource "libvirt_domain" "ubuntu" {
   network_interface {
     network_name = "default"
     hostname     = "${var.vms[count.index]}"
-  }
+    mac          = "${var.mac-address[count.index]}"
+}
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2-resized[count.index].id
