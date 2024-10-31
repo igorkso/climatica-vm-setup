@@ -1,0 +1,37 @@
+# syntax=docker/dockerfile:1.3
+
+FROM centos:7
+
+COPY ./packages.repo /etc/yum.repos.d/CentOS-Base.repo
+
+RUN yum clean all
+
+RUN yum update -y
+
+WORKDIR /grads_files
+
+RUN mkdir -p /grads_files/data2
+
+RUN mkdir -p /usr/local/lib/grads
+
+RUN yum install wget vim tar -y && \ 
+    wget http://cola.gmu.edu/grads/2.2/grads-2.2.0-bin-centos7.3-x86_64.tar.gz && \
+    wget http://cola.gmu.edu/grads/data2.tar.gz && \
+    wget http://cola.gmu.edu/grads/data2.tar.gz -O /grads_files/data2/data2.tar.gz && \
+    tar -xzf grads-2.2.0-bin-centos7.3-x86_64.tar.gz && \
+    cp -r grads-2.2.0/bin/ /usr/local/ && \
+    cp -r grads-2.2.0/lib/ /usr/local/lib/grads/
+    
+WORKDIR /grads_files/data2
+
+RUN tar -xzf data2.tar.gz && \
+    cp -r * /usr/local/lib/grads/
+
+ENV GADDIR="/usr/local/lib/grads/"
+
+COPY ./udpt /usr/local/lib/grads/lib/udpt
+
+ENV GAUDPT="/usr/local/lib/grads/lib/udpt"
+    
+ENTRYPOINT ["/bin/bash"]
+     	
