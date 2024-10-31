@@ -1,0 +1,9 @@
+# Type     Name     Full path to shared object file
+# ----     ----     -------------------------------
+gxdisplay  Cairo    /usr/local/lib/grads/lib/libgxdCairo.so
+gxdisplay  X11      /usr/local/lib/grads/lib/libgxdX11.so
+gxdisplay  linux  /usr/local/lib/grads/lib/libgxdummy.so
+#*
+gxprint    Cairo    /usr/local/lib/grads/lib/libgxpCairo.so
+gxprint    GD       /usr/local/lib/grads/lib/libgxpGD.so
+gxprint    grads2  /usr/local/lib/grads/lib/libgxdummy.so
